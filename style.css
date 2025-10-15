@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #252525;
+}
+
+.square-grid {
+    display: flex;
+    
+    flex-wrap: wrap;
+    height: min(64vh, 64vw);
+    width: min(64vh, 64vw);
+    border: solid black 1px;
+    margin: auto;
+}
+
+.pixel {
+    flex-grow: 0;
+    height: 6.25%;
+    width: 6.25%;
+    background-color: white;
+}
