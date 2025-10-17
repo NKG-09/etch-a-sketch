@@ -67,7 +67,7 @@ function paint (event) {
 }
 
 function getRandomColor () {
-    color = [0, 0, 0].forEach( (i) => i = Math.floor(Math.random() * 256) );
+    let color = [0, 0, 0].map( () => Math.floor(Math.random() * 256) );
     return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
 }
 
