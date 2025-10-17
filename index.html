@@ -12,23 +12,19 @@
 
     <body>
         <section>
-            <div class="container">
-                <div class="options">
-                    <h1>Options</h1>
-                    <h2 class="size-display">16x16</h2>
-                    <input class="size" type="range" min="1" max="64" value="16">
+            <div class="options">
+                <input class="color-picker" type="color" value="black">
+                <h2 class="size-display">16x16</h2>
+                <input class="size" type="range" min="1" max="64" value="16">
 
-                    <h1>Colors</h1>
-                    <input class="color-picker" type="color" value="black">
+                <button class="color">Color</button>
+                <button class="eraser">Eraser</button>
+                <button class="randomize">Randomize</button>
 
-                    <button class="color">Color</button>
-                    <button class="eraser">Eraser</button>
-                    <button class="randomize">Randomize</button>
-
-                    <button class="clear">Clear</button>
-                </div>
-                <div class="square-grid"></div>
+                <button class="clear">Clear</button>
             </div>
+            
+            <div class="square-grid"></div>
         </section>
     </body>
 </html>
