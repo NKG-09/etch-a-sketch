@@ -2,7 +2,7 @@
 
 :root {
   --primary-color: #E6FAFB;
-  --shadow-color: #92D8FC;
+  --secondary-color: #92D8FC;
   --background-color: #232659;
 }
 
@@ -14,14 +14,45 @@
     box-sizing: border-box;
 }
 
-body {
+header, footer {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 48px;
+    text-shadow: 0 0 10px var(--background-color);
+}
+
+footer a {
     color: var(--primary-color);
-    background-color: var(--background-color);
+    text-decoration: none;
+    text-shadow: 0 0 5px var(--secondary-color);
+}
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    color: var(--primary-color);
+    background: linear-gradient(var(--secondary-color), var(--background-color));
 }
 
 section {
     display: flex;
     flex-wrap: wrap-reverse;
+    flex-grow: 1;
+    width: 100%;
     justify-content: center;
     align-items: center;
     padding: 50px;
@@ -54,9 +85,10 @@ input[type="color"]:hover {
     transform: scale(1.1);
 }
 
-h2 {
+.options h2 {
     font-size: 32px;
     font-weight: 500;
+    text-shadow: 0 0 5px var(--secondary-color);
 }
 
 input[type="range"] {
@@ -64,8 +96,8 @@ input[type="range"] {
   appearance: none;
   width: 100%;
   height: 25px;
-  background-color: var(--shadow-color);
-  box-shadow: 0px 0px 10px var(--shadow-color);
+  background-color: var(--secondary-color);
+  box-shadow: 0px 0px 10px var(--secondary-color);
   outline: none;
 }
 
@@ -76,7 +108,7 @@ input[type="range"]::-webkit-slider-thumb {
   height: 30px;
   background-color: var(--background-color);
   border: dashed var(--primary-color) 2px;
-  box-shadow: 0px 0px 15px var(--shadow-color);
+  box-shadow: 0px 0px 15px var(--secondary-color);
   transition: transform 0.05s ease;
 }
 input[type="range"]::-webkit-slider-thumb:hover {
@@ -88,7 +120,7 @@ input[type="range"]::-moz-range-thumb {
   height: 30px;
   background-color: var(--background-color);
   border: dashed var(--primary-color) 2px;
-  box-shadow: 0px 0px 15px var(--shadow-color);
+  box-shadow: 0px 0px 15px var(--secondary-color);
   transition: transform 0.05s ease;
 }
 input[type="range"]::-moz-range-thumb:hover {
@@ -105,7 +137,7 @@ button {
     padding: 10px 20px;
     color: var(--primary-color);
     background-color: transparent;
-    box-shadow: 0px 0px 15px var(--shadow-color);
+    box-shadow: 0px 0px 15px var(--secondary-color);
     transition: transform 0.15s ease, color 0.1s ease, background-color 0.2s ease;
 }
 
@@ -122,7 +154,7 @@ button:hover, button.selected {
     aspect-ratio: 1/1;
 
     background-color: transparent;
-    box-shadow: 0px 0px 10px var(--shadow-color);
+    box-shadow: 0px 0px 15px var(--secondary-color);
 
     -webkit-user-select: none;
     -ms-user-select: none;
