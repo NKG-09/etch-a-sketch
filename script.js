@@ -20,14 +20,18 @@ function editOptions (event) {
     
     if (element.tagName === "BUTTON") {
         if (element.textContent === "Clear") { generateGrid(); }
-        else brushState = ["Color", "Eraser", "Randomize"].indexOf(element.textContent);
+        else {
+            [...document.querySelectorAll("button")].forEach(element => element.classList.remove("selected"));
+            element.classList.add("selected");
+            brushState = ["Color", "Eraser", "Randomize", "Darken", "Lighten"].indexOf(element.textContent);
+        }
     }
     
     else if (element.tagName === "INPUT") {
         if (element.type === "color") { selectedColor = element.value; }
         else if (element.type === "range") {
             selectedGridSize = element.value;
-            document.querySelector("#size-display").textContent = `${selectedGridSize}x${selectedGridSize}`;
+            document.querySelector("h2").textContent = `${selectedGridSize}x${selectedGridSize}`;
             if (event.type === "click") generateGrid();
         }
     }
@@ -40,6 +44,7 @@ function generateGrid () {
         const pixel = document.createElement("div");
         pixel.classList.add("pixel");
         pixel.style.height = (100 / selectedGridSize) + "%";
+        pixel.style.backgroundColor = "#ffffff";
         grid.appendChild(pixel);
     }
 }
@@ -53,16 +58,31 @@ function paint (event) {
     let color = "";
 
     if (brushState === 0) color = selectedColor;
-    if (brushState === 1) color = "white";
-    if (brushState === 2) color = getRandomColor();
+    else if (brushState === 1) color = "#ffffff";
+    else if (brushState === 2) color = getRandomColor();
+    else if (brushState === 3) color = darkenOrLightenColor(pixel.style.backgroundColor, false);
+    else if (brushState === 4) color = darkenOrLightenColor(pixel.style.backgroundColor, true);
 
     pixel.style.backgroundColor = color;
 }
 
 function getRandomColor () {
-    const red = Math.floor(Math.random() * 256);
-    const blue = Math.floor(Math.random() * 256);
-    const green = Math.floor(Math.random() * 256);
+    color = [0, 0, 0].forEach( (i) => i = Math.floor(Math.random() * 256) );
+    return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+}
 
-    return `rgb(${red}, ${blue}, ${green})`;
+function darkenOrLightenColor (color, darkenOrLighten) {
+    let darkenedColor = [0, 0, 0];
+
+    if (color[0] === '#') darkenedColor = [
+        parseInt(color.slice(1, 3), 16),
+        parseInt(color.slice(3, 5), 16),
+        parseInt(color.slice(5), 16)
+    ];
+    else darkenedColor = color.slice(4, -1).split(", ").map( (i) => Number(i) );
+
+    if (darkenOrLighten) darkenedColor = darkenedColor.map( (i) => Math.min((i + 25.5), 255) );
+    else darkenedColor = darkenedColor.map( (i) => Math.max((i - 25.5), 0) );
+
+    return `rgb(${darkenedColor[0]}, ${darkenedColor[1]}, ${darkenedColor[2]})`;
 }
