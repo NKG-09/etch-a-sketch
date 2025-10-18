@@ -10,6 +10,11 @@ const grid = document.querySelector(".square-grid");
 grid.addEventListener("mousedown", (event) => { isMouseDown = true; paint(event); } );
 grid.addEventListener("mouseover", paint);
 
+grid.addEventListener("touchstart", (event) => { isMouseDown = true; paintTouch(event); }, { passive: false });
+grid.addEventListener("touchmove", paintTouch, { passive: false });
+grid.addEventListener("touchend", () => isMouseDown = false);
+grid.addEventListener("touchcancel", () => isMouseDown = false);
+
 document.querySelector(".options").addEventListener("click", editOptions);
 document.querySelector(".options").addEventListener("input", editOptions);
 
@@ -85,4 +90,15 @@ function darkenOrLightenColor (color, darkenOrLighten) {
     else darkenedColor = darkenedColor.map( (i) => Math.max((i - 25.5), 0) );
 
     return `rgb(${darkenedColor[0]}, ${darkenedColor[1]}, ${darkenedColor[2]})`;
+}
+
+function paintTouch(event) {
+    event.preventDefault();
+    if (!isMouseDown) return;
+
+    const pixel = document.elementFromPoint(event.touches[0].clientX, event.touches[0].clientY);
+
+    if (pixel && pixel.classList.contains("pixel")) {
+        paint({ target: pixel, preventDefault: () => {} });
+    }
 }
