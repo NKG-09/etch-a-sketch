@@ -16,6 +16,7 @@ grid.addEventListener("touchend", () => isMouseDown = false);
 grid.addEventListener("touchcancel", () => isMouseDown = false);
 
 document.querySelector(".options").addEventListener("click", editOptions);
+document.querySelector(".options").addEventListener("touchend", editOptions);
 document.querySelector(".options").addEventListener("input", editOptions);
 
 generateGrid();
@@ -37,7 +38,7 @@ function editOptions (event) {
         else if (element.type === "range") {
             selectedGridSize = element.value;
             document.querySelector("h2").textContent = `${selectedGridSize}x${selectedGridSize}`;
-            if (event.type === "click") generateGrid();
+            if (event.type === "click" || event.type === "touchend") generateGrid();
         }
     }
 }
@@ -48,7 +49,7 @@ function generateGrid () {
     for (let i = 0; i < selectedGridSize ** 2; i++) {
         const pixel = document.createElement("div");
         pixel.classList.add("pixel");
-        pixel.style.height = (100 / selectedGridSize) + "%";
+        pixel.style.flexBasis = (100 / selectedGridSize) + "%";
         pixel.style.backgroundColor = "#ffffff";
         grid.appendChild(pixel);
     }

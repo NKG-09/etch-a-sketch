@@ -18,20 +18,22 @@ header, footer {
     display: flex;
     width: 100%;
     height: 100px;
-    padding: 10px;
+    margin-top: 20px;
+    padding: 20px 30px;
     justify-content: center;
     align-items: center;
 }
 
 header h1 {
-    font-size: min(10vw, 64px);
+    font-size: min(10vw, 5rem);
     text-shadow: 0 0 10px var(--background-color);
 }
 
 footer a {
+    font-size: min(3vw, 1.25rem);
     color: var(--primary-color);
     text-decoration: none;
-    text-shadow: 0 0 5px var(--secondary-color);
+    text-shadow: 0 0 5px var(--secondary-colorr);
 }
 
 html, body {
@@ -44,7 +46,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    gap: 10px;
     color: var(--primary-color);
     background: linear-gradient(var(--secondary-color), var(--background-color));
     background-attachment: fixed;
@@ -57,7 +58,7 @@ section {
     width: 100%;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 0 30px;
     gap: 50px;
 }
 
@@ -143,10 +144,22 @@ button {
     transition: transform 0.15s ease, color 0.1s ease, background-color 0.2s ease;
 }
 
-button:hover, button.selected {
+button:active, button.selected {
     color: var(--background-color);
     background-color: var(--primary-color);
     transform: scale(1.25);
+}
+
+@media (any-hover: hover) {
+    button:hover {
+        color: var(--background-color);
+        background-color: var(--primary-color);
+        transform: scale(1.25);
+    }
+}
+
+button:active {
+    transform: scale(1.35);
 }
 
 .square-grid {
@@ -161,6 +174,8 @@ button:hover, button.selected {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+
+    will-change: transform;
 }
 
 .pixel {
@@ -168,5 +183,5 @@ button:hover, button.selected {
 }
 
 .pixel:hover {
-    border: solid var(--background-color) 3px;
+    border: solid var(--background-color) 1rpx;
 }
