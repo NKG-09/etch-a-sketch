@@ -180,6 +180,7 @@ button:active {
 
 .pixel {
     aspect-ratio: 1/1;
+    transition: background-color 0.1s ease;
 }
 
 .pixel:hover {
