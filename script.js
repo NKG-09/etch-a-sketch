@@ -29,7 +29,7 @@ function editOptions (event) {
         else {
             [...document.querySelectorAll("button")].forEach(element => element.classList.remove("selected"));
             element.classList.add("selected");
-            brushState = ["Color", "Eraser", "Randomize", "Darken", "Lighten"].indexOf(element.textContent);
+            brushState = ["Color", "Eraser", "Randomize", "Shade", "Lighten"].indexOf(element.textContent);
         }
     }
     
@@ -66,10 +66,12 @@ function paint (event) {
     if (brushState === 0) color = selectedColor;
     else if (brushState === 1) color = "#ffffff";
     else if (brushState === 2) color = getRandomColor();
-    else if (brushState === 3) color = darkenOrLightenColor(pixel.style.backgroundColor, false);
-    else if (brushState === 4) color = darkenOrLightenColor(pixel.style.backgroundColor, true);
+    else if (brushState === 3) shadeColor(pixel);
+    else if (brushState === 4) shadeColor(pixel, true);
 
-    pixel.style.backgroundColor = color;
+    if (brushState !== 3 && brushState !== 4) { pixel.style.opacity = "1"; }
+
+    pixel.style.backgroundColor = color || selectedColor;
 }
 
 function getRandomColor () {
@@ -77,13 +79,13 @@ function getRandomColor () {
     return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
 }
 
-function darkenOrLightenColor (color, darkenOrLighten) {
-    let darkenedColor = parseColor(color);
+function shadeColor (pixel, lighten = false) {
+    let toShade = parseColor(pixel.style.backgroundColor) === parseColor(selectedColor);
 
-    if (darkenOrLighten) darkenedColor = darkenedColor.map( (i) => Math.min((i + 25.5), 255) );
-    else darkenedColor = darkenedColor.map( (i) => Math.max((i - 25.5), 0) );
-
-    return `rgb(${darkenedColor[0]}, ${darkenedColor[1]}, ${darkenedColor[2]})`;
+    pixel.style.opacity = 
+    (toShade)
+    ? "0" 
+    : Number(pixel.style.opacity) + (lighten ? -0.1 : 0.1) + "";
 }
 
 function parseColor (color) {
