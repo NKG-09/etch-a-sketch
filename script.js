@@ -78,19 +78,24 @@ function getRandomColor () {
 }
 
 function darkenOrLightenColor (color, darkenOrLighten) {
-    let darkenedColor = [0, 0, 0];
-
-    if (color[0] === '#') darkenedColor = [
-        parseInt(color.slice(1, 3), 16),
-        parseInt(color.slice(3, 5), 16),
-        parseInt(color.slice(5), 16)
-    ];
-    else darkenedColor = color.slice(4, -1).split(", ").map( (i) => Number(i) );
+    let darkenedColor = parseColor(color);
 
     if (darkenOrLighten) darkenedColor = darkenedColor.map( (i) => Math.min((i + 25.5), 255) );
     else darkenedColor = darkenedColor.map( (i) => Math.max((i - 25.5), 0) );
 
     return `rgb(${darkenedColor[0]}, ${darkenedColor[1]}, ${darkenedColor[2]})`;
+}
+
+function parseColor (color) {
+    if (!color) { return [0, 0, 0] }
+
+    else return (color[0] === '#')
+    ? [
+        parseInt(color.slice(1, 3), 16),
+        parseInt(color.slice(3, 5), 16),
+        parseInt(color.slice(5), 16)
+    ]
+    : color.slice(4, -1).split(", ").map( (i) => Number(i) );
 }
 
 function paintTouch(event) {
